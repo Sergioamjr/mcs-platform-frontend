@@ -1,0 +1,11 @@
+header {
+  height: 50px;
+  line-height: 50px;
+  padding: 0 19px;
+}
+
+
+.fix-heigth {
+  height: calc(100vh - 50px);
+  overflow: hidden;
+}

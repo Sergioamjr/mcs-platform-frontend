@@ -1,0 +1,22 @@
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  left: -250px;
+  overflow: hidden;
+  transition: left .3s ease;
+  z-index: 2; }
+  .sidebar .menu-item > div > div {
+    padding-left: 58px !important; }
+  .sidebar .top-logo-area {
+    height: 50px;
+    line-height: 50px;
+    padding: 0 20px; }
+
+.left0 {
+  left: 0; }
+
+@media screen and (min-width: 920px) {
+  .left0-m {
+    left: 0; }
+  .w-100-safe-ms {
+    width: calc(100% - 250px) !important; } }

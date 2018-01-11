@@ -1,0 +1,45 @@
+import React, { Component } from 'react'
+import TextField from 'material-ui/TextField'
+import RaisedButton from 'material-ui/RaisedButton'
+import NumberFormat from 'react-number-format'
+
+export default class InformarDeposito extends Component {
+  componentDidMount() {
+    const obj = {
+      userId: 41149403837,
+      date: new Date(),
+      userName: 'Sérgio Júnior',
+      action: 'INVESTIMENTO',
+      value: 0,
+    }
+
+    this.props.updateRequestStore(obj)
+  }
+
+  componentWillUnmount() {
+    this.props.resetRequestStore()
+  }
+
+  render() {
+    return (
+      <div className='items-center fw4 pa4 ph3'>
+        <p className='mb3'>Por favor, informe o valor que você depositou.</p>
+        <form>
+          <NumberFormat
+            className='mb3 mr3 db'
+            customInput={TextField}
+            thousandSeparator
+            allowNegative={false}
+            onValueChange={e => this.props.handleChangeValue(e)}
+            floatingLabelText='Valor depositado'
+            prefix='R$'
+          />
+          {/* <RaisedButton label="Selecionar comprovante">
+            <input type="file" style={style} />
+          </RaisedButton><br/> */}
+          <RaisedButton onClick={this.props.onSubmit} label="Enviar" primary={true} />
+        </form>
+      </div>
+    )
+  }
+}

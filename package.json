@@ -1,0 +1,63 @@
+{
+  "name": "bullet-jornal",
+  "version": "0.1.0",
+  "private": true,
+  "main": "build/index.html",
+  "engines": {
+    "node": "6.2.2"
+  },
+  "dependencies": {
+    "axios": "^0.17.1",
+    "currency.js": "^1.0.1",
+    "lodash": "^4.17.4",
+    "material-ui": "^0.20.0",
+    "moment": "^2.20.1",
+    "node-sass-chokidar": "0.0.3",
+    "npm-run-all": "^4.1.2",
+    "prop-types": "^15.6.0",
+    "react": "^16.1.1",
+    "react-currency-input": "^1.3.4",
+    "react-dom": "^16.1.1",
+    "react-icons": "^2.2.7",
+    "react-number-format": "^3.1.2",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
+    "redux-form": "^7.2.0",
+    "redux-form-material-ui": "^4.3.1",
+    "redux-thunk": "^2.2.0",
+    "tachyons": "^4.9.0",
+    "tachyons-cli": "^1.2.0",
+    "toastr": "^2.1.4"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.0.3",
+    "enzyme": "^3.2.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "eslint": "^4.13.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.5.1",
+    "gh-pages": "^1.0.0",
+    "jest-cli": "^21.2.1",
+    "react-scripts": "^1.0.17",
+    "tachyons": "^4.9.0"
+  },
+  "scripts": {
+    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
+    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
+    "lint": "./node_modules/.bin/eslint src/*/**.js --fix",
+    "lint:init": "./node_modules/.bin/eslint --init",
+    "start-js": "react-scripts start",
+    "start": "npm-run-all -p watch-css start-js",
+    "build-js": "react-scripts build",
+    "build": "npm-run-all build-css build-js",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "heroku-postbuild": "npm install --only=dev && npm install && npm run build"
+  },
+  "homepage": "https://sergiojrdev.github.io/bullet-journal/"
+}
