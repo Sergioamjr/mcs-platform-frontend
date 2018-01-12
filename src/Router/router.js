@@ -24,7 +24,8 @@ import { Auth } from './../Services'
 const NotLogged = () => (
   <Switch>
     <Route exact path='/' component={Login} />
-    <Route path='/registro' component={Register} />
+    <Route exact path='/registro' component={Register} />
+    <Redirect to="/"/>
   </Switch>
 )
 
