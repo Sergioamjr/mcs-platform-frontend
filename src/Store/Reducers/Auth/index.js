@@ -27,7 +27,7 @@ export default function reducer(state = INITIAL_STATE, action) {
   }
 }
 
-export function validToken(payload) {
+export function isValidToken(payload) {
   return {
     type: TOKEN_VALIDATED,
     payload,

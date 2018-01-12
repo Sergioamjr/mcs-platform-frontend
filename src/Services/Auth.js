@@ -21,7 +21,7 @@ class Auth {
 
   static validateToken(token) {
     return new Promise((res, rej) => {
-      axios.post(`${AUTH_API}/validateToken`, token)
+      axios.post(`${AUTH_API}/validateToken`, { token })
         .then(res)
         .catch(rej)
     })
