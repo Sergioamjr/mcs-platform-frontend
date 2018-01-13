@@ -46,7 +46,7 @@ class LancarSaque extends React.Component {
     return searchOptions.items.map((item) => (
       <li
         onClick={() => itemSelected(item)}
-        className={`pointer list pv2 ph1 bb b--light-gray ${userSelected === item.cpf ? 'bg-silver' : ''}`}
+        className={`pointer list pv2 ph1 bb b--light-gray ${userSelected === item.email ? 'bg-silver' : ''}`}
         key={item._id}>{item.nome} {item.sobrenome} - CPF {item.cpf}
       </li>
     ))

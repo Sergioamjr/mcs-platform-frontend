@@ -19,7 +19,6 @@ const DataPickerField = ({ input }, props) => (
 
 class PersonalForm extends React.Component {
   render() {
-    console.log(this.props)
     return (
       <form className='tl wm-700 maa bg-white pa3' onSubmit={this.props.handleSubmit}>
         <Paper className='mb4 pt3 pb3 flex flex-wrap' zDepth={1}>

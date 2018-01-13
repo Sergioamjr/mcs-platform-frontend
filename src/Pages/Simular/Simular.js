@@ -100,7 +100,7 @@ export default class Simular extends React.Component {
                 onValueChange={this.handleTimeChange}
                 className='mr4'
                 floatingLabelText='Tempo de Rendimento' />
-              <RaisedButton type='submit' label='Calcular' primary />
+              <RaisedButton className='mt3' type='submit' label='Calcular' primary />
             </form>
             {rend[1] && (
 

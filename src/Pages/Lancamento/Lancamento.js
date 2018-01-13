@@ -67,7 +67,7 @@ class Saque extends React.Component {
                 itemSelected={this.itemSelected}
                 searchOptions={search}
                 type='saque'
-                userSelected={lancamento.userId}
+                userSelected={lancamento.email}
                 resetSearch={this.setViewerAndType}
                 onSubmit={this.handleSubmit}
               />}
@@ -76,7 +76,7 @@ class Saque extends React.Component {
                 itemSelected={this.itemSelected}
                 searchOptions={search}
                 type='rendimento'
-                userSelected={lancamento.userId}
+                userSelected={lancamento.email}
                 resetSearch={this.setViewerAndType}
                 onSubmit={this.handleSubmit}
               />}
@@ -85,7 +85,7 @@ class Saque extends React.Component {
                 itemSelected={this.itemSelected}
                 searchOptions={search}
                 type='investimento'
-                userSelected={lancamento.userId}
+                userSelected={lancamento.email}
                 resetSearch={this.setViewerAndType}
                 onSubmit={this.handleSubmit}
               />}
@@ -101,7 +101,7 @@ const mapStateToProps = ({ userViewer, search, lancamento }, props) => ({
   userViewer,
   lancamento,
   search,
-  props,
+  ...props,
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators({

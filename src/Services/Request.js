@@ -12,7 +12,7 @@ class Request {
 
   static getUserRequests(id) {
     return new Promise((resolve, reject) => {
-      axios.get(`${API_CONFIG.CLOSE_API}/request?search=${id}`)
+      axios.get(`${API_CONFIG.CLOSE_API}/request/search?user=${id}`)
         .then(resolve)
         .catch(reject)
     })

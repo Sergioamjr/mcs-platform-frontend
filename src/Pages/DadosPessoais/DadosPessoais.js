@@ -18,8 +18,12 @@ class DadosPessoais extends React.Component {
   submit = (values) => {
     const Request = values._id ? UserInfo.updateUser(values) : UserInfo.createUser(values)
     Request
-      .then(e => console.log('success', e))
-      .catch(({ response }) => showToastr(response))
+      .then(() => showToastr('Atualizado com sucesso.', 'success'))
+      .catch(error => {
+        if (error.response) {
+          showToastr(error.response.data, 'error')
+        }
+      })
   }
 
   render() {

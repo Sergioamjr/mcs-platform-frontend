@@ -38,24 +38,26 @@ class Historico extends React.Component {
 
 
   render() {
-    console.log(this.props.userInfo)
+    const { userInfo: { history }} = this.props
     return (
       <WrapperPage>
         <FlexContent>
           <BoxContent grid='w-100 maa pa3' title='Histórico'>
-            <Table selectable={false}>
-              <TableHeader displaySelectAll={false} enableSelectAll={false} adjustForCheckbox={false}>
-                <TableRow>
-                  <TableHeaderColumn>Data</TableHeaderColumn>
-                  <TableHeaderColumn>Ação</TableHeaderColumn>
-                  <TableHeaderColumn>Valor</TableHeaderColumn>
-                  <TableHeaderColumn>Status</TableHeaderColumn>
-                </TableRow>
-              </TableHeader>
-              <TableBody displayRowCheckbox={false}>
-                {this.renderUserHistory()}
-              </TableBody>
-            </Table>
+            {history.length > 0 ? (
+              <Table selectable={false}>
+                <TableHeader displaySelectAll={false} enableSelectAll={false} adjustForCheckbox={false}>
+                  <TableRow>
+                    <TableHeaderColumn>Data</TableHeaderColumn>
+                    <TableHeaderColumn>Ação</TableHeaderColumn>
+                    <TableHeaderColumn>Valor</TableHeaderColumn>
+                    <TableHeaderColumn>Status</TableHeaderColumn>
+                  </TableRow>
+                </TableHeader>
+                <TableBody displayRowCheckbox={false}>
+                  {this.renderUserHistory()}
+                </TableBody>
+              </Table>
+            ) : <p className='pa3 tc'>Sem histórico de lançamento ainda.</p>}
           </BoxContent>
         </FlexContent>
       </WrapperPage>

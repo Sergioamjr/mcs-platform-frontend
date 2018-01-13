@@ -25,7 +25,7 @@ class InformarDeposito extends Component {
   render() {
     return (
       <div className='items-center fw4 pa4 ph3'>
-        <p className='mb3'>Por favor, informe o valor que você depositou.</p>
+        <p className='mb3'>Informe o valor que você depositou.</p>
         <form>
           <NumberFormat
             className='mb3 mr3 db'
@@ -36,7 +36,7 @@ class InformarDeposito extends Component {
             floatingLabelText='Valor depositado'
             prefix='R$'
           />
-          <RaisedButton onClick={this.props.onSubmit} label="Enviar" primary={true} />
+          <RaisedButton onClick={this.props.onSubmit} label='Enviar' primary />
         </form>
       </div>
     )

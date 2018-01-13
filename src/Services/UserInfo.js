@@ -11,14 +11,6 @@ class UserInfo {
     })
   }
 
-  static getUserID(user = '') {
-    return new Promise((resolve, reject) => {
-      axios.get(`${API_CONFIG.CLOSE_API}/userinfo/searchid?email=${user}`)
-        .then(resolve)
-        .catch(reject)
-    })
-  }
-
   static createUser(values) {
     return this.submitUser(values, 'post')
   }

@@ -47,7 +47,7 @@ class FormLogin extends React.Component {
           />
         </div>
         <div className='flex justify-between'>
-          <RaisedButton label='Enviar' type='submit' primary={true} />
+          <RaisedButton label='Enviar' type='submit' primary />
           <Link to='/registro'>Criar conta</Link>
         </div>
       </form>
@@ -57,7 +57,7 @@ class FormLogin extends React.Component {
 
 const mapStateToProps = ({ login }, props) => ({
   login,
-  props,
+  ...props,
 })
 
 export default connect(mapStateToProps)(withRouter(FormLogin))

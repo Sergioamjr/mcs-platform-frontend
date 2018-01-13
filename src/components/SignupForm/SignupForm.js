@@ -23,7 +23,6 @@ class SignupForm extends React.Component {
   }
 
   render() {
-    console.log(this.props.signup)
     return (
       <form className='tl w-m-400 maa bg-white pa3' onSubmit={this.handleSubmit}>
         <p>Se registre.</p>
@@ -62,8 +61,8 @@ class SignupForm extends React.Component {
           />
         </div>
         <div className='flex justify-between'>
-          <RaisedButton label='Enviar' type='submit' primary={true} />
-          <RaisedButton label='Criar conta'/>
+          <RaisedButton label='Enviar' type='submit' primary />
+          <RaisedButton label='Criar conta' />
         </div>
       </form>
     )
@@ -72,7 +71,7 @@ class SignupForm extends React.Component {
 
 const mapStateToProps = ({ signup }, props) => ({
   signup,
-  props,
+  ...props,
 })
 
 export default connect(mapStateToProps)(SignupForm)

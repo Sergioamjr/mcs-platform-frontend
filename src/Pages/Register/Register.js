@@ -90,7 +90,7 @@ class SignupForm extends React.Component {
 
 const mapStateToProps = ({ signup }, props) => ({
   signup,
-  props,
+  ...props,
 })
 
 export default connect(mapStateToProps)(withRouter(SignupForm))

@@ -18,11 +18,12 @@ import { FormatValues, FormatData } from './../../utils'
 
 class Home extends React.Component {
   componentDidMount = () => {
-    UserInfo.getUserInfo('49785578931')
-      .then((data) => this.props.dispatch(GetUserPayments(data)))
+    const { dispatch, auth } = this.props
+    UserInfo.getUserInfo(auth.user.email)
+      .then((data) => dispatch(GetUserPayments(data)))
       .catch(err => console.log('error', err))
-    Request.getUserRequests('49785578931')
-      .then(({ data }) => this.props.dispatch(GetUserRequests(data)))
+    Request.getUserRequests(auth.user.email)
+      .then(({ data }) => dispatch(GetUserRequests(data)))
       .catch(err => console.log('error', err))
   }
 
@@ -82,7 +83,7 @@ class Home extends React.Component {
         )}
         {this.props.userInfo.requests.length > 0 && (
           <FlexContent>
-            <BoxContent grid='w-100 pa3' title='Solicitações'>
+            <BoxContent grid='w-100 pa3' title='Pedidos'>
               <Table selectable={false}>
                 <TableHeader displaySelectAll={false} enableSelectAll={false} adjustForCheckbox={false}>
                   <TableRow>
@@ -104,10 +105,11 @@ class Home extends React.Component {
   }
 }
 
-const mapStateToProps = ({ market, userInfo }, props) => ({
+const mapStateToProps = ({ market, userInfo, auth }, props) => ({
   market,
   userInfo,
-  props,
+  auth,
+  ...props,
 })
 
 export default connect(mapStateToProps)(Home)

@@ -33,7 +33,7 @@ class SolicitarSaque extends Component {
   render() {
     return (
       <div className='items-center fw4 pa4 ph3'>
-        <p className='mb3'>Por favor, informe quanto você gostaria de sacar.</p>
+        <p className='mb3'>Informe quanto você gostaria de receber.</p>
         <Table selectable={false}>
           <TableHeader displaySelectAll={false} enableSelectAll={false} adjustForCheckbox={false}>
             <TableRow>

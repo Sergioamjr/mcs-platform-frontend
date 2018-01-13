@@ -19,7 +19,7 @@ import {
   Register,
 } from './../Pages'
 import { isValidToken, fetchUser } from './../Store/Reducers/Auth'
-import { Auth } from './../Services'
+import { Auth, UserInfo } from './../Services'
 
 const NotLogged = () => (
   <Switch>
@@ -75,10 +75,8 @@ class AppRouter extends React.Component {
   render() {
     const { auth: { user, validToken } } = this.props
     const isLogged = user !== null && validToken !== false
-    const isAdmin = true
-    console.log(this.props.auth.user)
+    const isAdmin = user ? UserInfo.isAdmin(user.email) : false
     if (isLogged && !isAdmin) {
-      console.log('not admin')
       axios.defaults.headers.common['authorization'] = user.token
       return(
         <Router>
@@ -86,7 +84,6 @@ class AppRouter extends React.Component {
         </Router>
       )
     } else if (isLogged && isAdmin) {
-      console.log('admin')
       axios.defaults.headers.common['authorization'] = user.token
       return(
         <Router>

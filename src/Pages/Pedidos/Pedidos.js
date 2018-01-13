@@ -75,7 +75,7 @@ class Pedidos extends React.Component {
 const mapStateToProps = ({ userViewer, request }, props) => ({
   userViewer,
   request,
-  props,
+  ...props,
 })
 
 export default connect(mapStateToProps)(Pedidos)
