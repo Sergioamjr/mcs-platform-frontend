@@ -7,6 +7,7 @@ const DefaultStore = {
     history: [],
     requests: [],
     personal: {},
+    isAdmin: false,
   },
   auth: {
     user: null,

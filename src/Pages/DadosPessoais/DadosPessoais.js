@@ -10,7 +10,8 @@ import { GetPersonalUserInfo } from './../../Store/Reducers/userInfo'
 
 class DadosPessoais extends React.Component {
   componentDidMount() {
-    UserInfo.getUserByEmail('sergioamjr91@gmail.com')
+    const { user: { email } } = this.props.auth
+    UserInfo.getUserByEmail(email)
       .then(response => this.props.dispatch(GetPersonalUserInfo(response)))
   }
 
@@ -34,9 +35,10 @@ class DadosPessoais extends React.Component {
   }
 }
 
-const mapStateToProps = ({ signup, userInfo }, props) => ({
+const mapStateToProps = ({ signup, userInfo, auth }, props) => ({
   signup,
   userInfo,
+  auth,
   ...props,
 })
 

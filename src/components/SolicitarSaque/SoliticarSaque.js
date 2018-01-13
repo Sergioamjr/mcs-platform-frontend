@@ -9,14 +9,16 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table'
+import { connect } from 'react-redux'
 import NumberFormat from 'react-number-format'
 
-export default class SolicitarSaque extends Component {
+class SolicitarSaque extends Component {
   componentDidMount() {
+    const { user: { email, name } } = this.props.auth
     const obj = {
-      userId: 41149403837,
+      email,
       date: new Date(),
-      userName: 'Sérgio Júnior',
+      userName: name,
       action: 'SAQUE',
       value: 0,
     }
@@ -65,3 +67,10 @@ export default class SolicitarSaque extends Component {
     )
   }
 }
+
+const mapStateToProps = ({ auth }, props) => ({
+  auth,
+  ...props,
+})
+
+export default connect(mapStateToProps)(SolicitarSaque)

@@ -18,9 +18,8 @@ import { UserInfo } from './../../Services'
 class Historico extends React.Component {
   componentDidMount() {
     const { dispatch, auth } = this.props
-    UserInfo.getUserID(auth.user.email)
-      .then(({ data }) => UserInfo.getUserInfo(data.userId)
-        .then(response => dispatch(SetUserHistory(response))))
+    UserInfo.getUserInfo(auth.user.email)
+      .then(response => dispatch(SetUserHistory(response)))
   }
 
   renderUserHistory = () => {

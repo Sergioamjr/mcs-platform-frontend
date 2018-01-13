@@ -7,6 +7,7 @@ const GET_REQUESTS = 'GET_REQUESTS'
 const GET_PAYMENTS = 'GET_PAYMENTS'
 const RESET_USERINFO = 'RESET_USERINFO'
 const GET_PERSONAL_USER_INFO = 'GET_PERSONAL_USER_INFO'
+const IS_ADMIN = 'IS_ADMIN'
 
 export default function reducer(state = userInfo, action = {}) {
   switch (action.type) {
@@ -18,9 +19,11 @@ export default function reducer(state = userInfo, action = {}) {
       return { ...state, requests: action.payload }
     case GET_PAYMENTS:
       return { ...state, payments: action.payload }
+    case IS_ADMIN:
+      return { ...state, isAdmin: action.payload }
     case RESET_USERINFO:
       return {
-        ...state, requests: [], history: [], personal: {}, payments: [],
+        ...state, requests: [], history: [], personal: {}, payments: [], isAdmin: false,
       }
     default: return state
   }
@@ -36,6 +39,13 @@ export function GetUserPayments(payload) {
 export function SetUserHistory(payload) {
   return {
     type: SET_HISTORY,
+    payload,
+  }
+}
+
+export function isUserAdmin(payload) {
+  return {
+    type: IS_ADMIN,
     payload,
   }
 }

@@ -25,11 +25,22 @@ const NotLogged = () => (
   <Switch>
     <Route exact path='/' component={Login} />
     <Route exact path='/registro' component={Register} />
-    <Redirect to="/"/>
+    <Redirect to='/' />
   </Switch>
 )
 
 const UserLogged = () => (
+  <Switch>
+    <Route exact path='/inicio' component={Home} />
+    <Route exact path='/pedidos' component={Pedidos} />
+    <Route exact path='/historico' component={Historico} />
+    <Route exact path='/simular' component={Simular} />
+    <Route exact path='/dados-pessoais' component={DadosPessoais} />
+    <Redirect to='/inicio' />
+  </Switch>
+)
+
+const UserAdmin = () => (
   <Switch>
     <Route exact path='/inicio' component={Home} />
     <Route exact path='/lancamento' component={Lancamento} />
@@ -38,14 +49,14 @@ const UserLogged = () => (
     <Route exact path='/simular' component={Simular} />
     <Route exact path='/dados-pessoais' component={DadosPessoais} />
     <Route exact path='/cotacao' component={Cotacao} />
-    <Redirect to="/inicio"/>
+    <Redirect to='/inicio' />
   </Switch>
 )
 
 class AppRouter extends React.Component {
   componentDidMount() {
     const getStorage = JSON.parse(localStorage.getItem('_mymoney_user'))
-    if(getStorage) {
+    if (getStorage) {
       const { token } = getStorage
       const { dispatch } = this.props
       Auth.validateToken(token)
@@ -64,21 +75,32 @@ class AppRouter extends React.Component {
   render() {
     const { auth: { user, validToken } } = this.props
     const isLogged = user !== null && validToken !== false
+    const isAdmin = true
     console.log(this.props.auth.user)
-    if(isLogged) {
-      Auth.validateToken(user.token)
+    if (isLogged && !isAdmin) {
+      console.log('not admin')
       axios.defaults.headers.common['authorization'] = user.token
       return(
         <Router>
           <UserLogged />
         </Router>
       )
-    } else {
+    } else if (isLogged && isAdmin) {
+      console.log('admin')
+      axios.defaults.headers.common['authorization'] = user.token
+      return(
+        <Router>
+          <UserAdmin />
+        </Router>
+      )
+    } else if (!isLogged) {
       return(
         <Router>
           <NotLogged />
         </Router>
       )
+    } else {
+      return null
     }
   }
 }

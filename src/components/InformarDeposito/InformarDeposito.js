@@ -2,13 +2,15 @@ import React, { Component } from 'react'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import NumberFormat from 'react-number-format'
+import { connect } from 'react-redux'
 
-export default class InformarDeposito extends Component {
+class InformarDeposito extends Component {
   componentDidMount() {
+    const { user: { email, name } } = this.props.auth
     const obj = {
-      userId: 41149403837,
+      email,
       date: new Date(),
-      userName: 'Sérgio Júnior',
+      userName: name,
       action: 'INVESTIMENTO',
       value: 0,
     }
@@ -34,12 +36,16 @@ export default class InformarDeposito extends Component {
             floatingLabelText='Valor depositado'
             prefix='R$'
           />
-          {/* <RaisedButton label="Selecionar comprovante">
-            <input type="file" style={style} />
-          </RaisedButton><br/> */}
           <RaisedButton onClick={this.props.onSubmit} label="Enviar" primary={true} />
         </form>
       </div>
     )
   }
 }
+
+const mapStateToProps = ({ auth }, props) => ({
+  auth,
+  ...props,
+})
+
+export default connect(mapStateToProps)(InformarDeposito)

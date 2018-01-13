@@ -25,7 +25,7 @@ class Saque extends React.Component {
 
   setLancamentoViewRendimento = () => this.setViewerAndType('rendimento')
 
-  itemSelected = ({ nome, sobrenome, cpf }) => this.props.incrementUser({ userName: `${nome} ${sobrenome}`, userId: cpf })
+  itemSelected = ({ nome, sobrenome, email }) => this.props.incrementUser({ userName: `${nome} ${sobrenome}`, email })
 
   handleSubmit = values => {
     this.props.submitForm(values)

@@ -55,6 +55,15 @@ class UserInfo {
     })
   }
 
+  static isAdmin(email = '') {
+    return new Promise((resolve, reject) => {
+      axios.get(`${API_CONFIG.CLOSE_API}/userinfo/isadmin?email=${email}`)
+        .then(({ data }) => data)
+        .then(resolve)
+        .catch(reject)
+    })
+  }
+
   static throwPayment(data) {
     return new Promise((resolve, reject) => {
       axios.post(`${API_CONFIG.CLOSE_API}/payment`, data)
