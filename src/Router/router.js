@@ -16,6 +16,7 @@ import {
   Home,
   Cotacao,
   Login,
+  ClientsRequests,
   Register,
 } from './../Pages'
 import { isValidToken, fetchUser } from './../Store/Reducers/Auth'
@@ -45,6 +46,7 @@ const UserAdmin = () => (
     <Route exact path='/inicio' component={Home} />
     <Route exact path='/lancamento' component={Lancamento} />
     <Route exact path='/pedidos' component={Pedidos} />
+    <Route exact path='/pedidos-dos-clientes' component={ClientsRequests} />
     <Route exact path='/historico' component={Historico} />
     <Route exact path='/simular' component={Simular} />
     <Route exact path='/dados-pessoais' component={DadosPessoais} />
