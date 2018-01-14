@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField'
+import RaisedButton from 'material-ui/RaisedButton'
 import {
   Table,
   TableBody,
@@ -11,6 +11,7 @@ import {
 } from 'material-ui/Table'
 import { connect } from 'react-redux'
 import NumberFormat from 'react-number-format'
+import { FormatValues, FormatData } from './../../utils'
 
 class SolicitarSaque extends Component {
   componentDidMount() {
@@ -31,22 +32,23 @@ class SolicitarSaque extends Component {
   }
 
   render() {
+    const { userInfo: { payments } } = this.props
     return (
       <div className='items-center fw4 pa4 ph3'>
         <p className='mb3'>Informe quanto você gostaria de receber.</p>
         <Table selectable={false}>
           <TableHeader displaySelectAll={false} enableSelectAll={false} adjustForCheckbox={false}>
             <TableRow>
-              <TableHeaderColumn>Saldo Total</TableHeaderColumn>
-              <TableHeaderColumn>Saldo Disponível</TableHeaderColumn>
-              <TableHeaderColumn>Investimento Inicial</TableHeaderColumn>
+              <TableHeaderColumn>Saldo Atual</TableHeaderColumn>
+              <TableHeaderColumn>Disponível para saque</TableHeaderColumn>
+              <TableHeaderColumn>Investimento</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
             <TableRow className='striped--near-white'>
-              <TableRowColumn>R$5.000,00</TableRowColumn>
-              <TableRowColumn>R$3.000,00</TableRowColumn>
-              <TableRowColumn>R$2.000,00</TableRowColumn>
+              <TableRowColumn>{FormatValues(payments.totalAmount) || FormatValues(0)}</TableRowColumn>
+              <TableRowColumn>{FormatValues(payments.rendimento) || FormatValues(0)}</TableRowColumn>
+              <TableRowColumn>{FormatValues(payments.investimento) || FormatValues(0)}</TableRowColumn>
             </TableRow>
           </TableBody>
         </Table>
@@ -61,15 +63,17 @@ class SolicitarSaque extends Component {
           floatingLabelText='Valor'
           prefix='R$'
         />
-        <span className='db mb3 c-gray f7'>Tempo de repasse: 3 dias.</span>
+        <span className='db mb3 c-gray f7'>
+          Tempo de repasse: 3 dias valores até {FormatValues(payments.rendimento) || FormatValues(0)} e 30 dias até {FormatValues(payments.investimento) || FormatValues(0)}.</span>
         <RaisedButton onClick={this.props.onSubmit} type='submit' label='Solicitar Saque' primary />
       </div>
     )
   }
 }
 
-const mapStateToProps = ({ auth }, props) => ({
+const mapStateToProps = ({ auth, userInfo }, props) => ({
   auth,
+  userInfo,
   ...props,
 })
 
