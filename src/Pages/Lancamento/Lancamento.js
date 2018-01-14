@@ -1,15 +1,15 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import toastr from 'toastr'
 import WrapperPage from './../../components/wrapper'
 import BoxContent from './../../components/BoxContent'
 import FlexContent from './../../components/FlexContent'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { SetUserViewer } from './../../Store/Reducers/userViewer'
-import { LancarSaque } from './../../components'
+import { LancarSaque, AllPayments } from './../../components'
 import { updateSearch, resetSearch } from './../../Store/Reducers/Search'
 import { UserInfo } from './../../Services'
 import { submitForm, incrementUser, updateType, resetForm } from './../../Store/Reducers/Lancamento'
-import toastr from 'toastr'
 class Saque extends React.Component {
 
   setViewerAndType = (id = 'saque') => {
@@ -24,6 +24,8 @@ class Saque extends React.Component {
   setLancamentoViewDeposito = () => this.setViewerAndType('investimento')
 
   setLancamentoViewRendimento = () => this.setViewerAndType('rendimento')
+
+  setLancamentoViewAll = () => this.setViewerAndType('all')
 
   itemSelected = ({ nome, sobrenome, email }) => this.props.incrementUser({ userName: `${nome} ${sobrenome}`, email })
 
@@ -59,6 +61,9 @@ class Saque extends React.Component {
                 <li
                   onClick={this.setLancamentoViewDeposito}
                   className={`${actived === 'investimento' ? 'bg-white' : 'c-white'} dib pa3 f4 pa3 tl lh-solid c-dark pointer`}>Lançar Depósito</li>
+                <li
+                  onClick={this.setLancamentoViewAll}
+                  className={`${actived === 'all' ? 'bg-white' : 'c-white'} dib pa3 f4 pa3 tl lh-solid c-dark pointer`}>Lançamentos feitos</li>
               </ul>
             </nav>
             <div className='items-center fw4 pa4 ph3'>
@@ -89,6 +94,9 @@ class Saque extends React.Component {
                 resetSearch={this.setViewerAndType}
                 onSubmit={this.handleSubmit}
               />}
+              {actived === 'all' && (
+                <AllPayments />
+              )}
             </div>
           </BoxContent>
         </FlexContent>
