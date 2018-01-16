@@ -9,7 +9,7 @@ import {
   TableRowColumn,
 } from 'material-ui/Table'
 import { connect } from 'react-redux'
-import { SetUserpayments, GetUserPayments } from './../../Store/Reducers/userInfo'
+import { SetPayments } from './../../Store/Reducers/Payments'
 import { FormatData, FormatValues, showToastr } from './../../utils'
 import { Payments } from './../../Services'
 
@@ -17,28 +17,25 @@ class AllPayments extends React.Component {
   componentDidMount() {
     const { dispatch } = this.props
     Payments.GetAllPayments()
-      // .then(({ data }) => dispatch(GetUserPayments(data)))
+      .then(({ data }) => dispatch(SetPayments(data)))
   }
 
   handleDelete = (item) => {
-    console.log(item)
-    // Payments.DeletePayment(item._id)
-    //   .then(() => showToastr('Atualizado com sucesso.', 'success'))
-    //   .then(() => Request.GetAllRequest()
-    //     .then(({ data }) => this.props.dispatch(SetUserpayments(data)))
-    //   )
+    Payments.DeletePayment(item._id)
+      .then(() => showToastr('Lançamento excluído com sucesso.', 'success'))
+      .then(() => Payments.GetAllPayments()
+        .then(({ data }) => this.props.dispatch(SetPayments(data))))
   }
 
 
   renderUsersPayments = () => {
-    const { userInfo: { payments } } = this.props
-    console.log(payments)
-    return payments.map(item => {
+    const { payments } = this.props
+    return Object.values(payments.payments).map(item => {
       return (
         <TableRow key={item._id} className='striped--near-white'>
-          <TableRowColumn>{FormatData(item.date)}</TableRowColumn>
+          <TableRowColumn>{FormatData(item.data)}</TableRowColumn>
           <TableRowColumn>{item.userName}</TableRowColumn>
-          <TableRowColumn>{item.action}</TableRowColumn>
+          <TableRowColumn>{item.tipo}</TableRowColumn>
           <TableRowColumn>{FormatValues(item.value)}</TableRowColumn>
           <TableRowColumn>
             <FaClose onClick={() => this.handleDelete(item)} className='btn btn-primary pointer bg-red pa1 f3 c-white' />
@@ -50,10 +47,10 @@ class AllPayments extends React.Component {
 
 
   render() {
-    const { userInfo: { payments } } = this.props
+    const { payments } = this.props
     return (
       <div>
-        {payments.length > 0 ? (
+        {payments.payments[0] ? (
           <Table selectable={false}>
             <TableHeader displaySelectAll={false} enableSelectAll={false} adjustForCheckbox={false}>
               <TableRow>
@@ -74,8 +71,8 @@ class AllPayments extends React.Component {
   }
 }
 
-const mapStateToProps = ({ userInfo }, props) => ({
-  userInfo,
+const mapStateToProps = ({ payments }, props) => ({
+  payments,
   ...props,
 })
 

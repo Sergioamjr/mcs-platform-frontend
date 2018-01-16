@@ -23,9 +23,8 @@ const DefaultStore = {
     password: null,
     repassword: null,
   },
-  lancamento: {
-
-  },
+  lancamento: {},
+  payments: [],
   search: {
     items: [],
     show: false,
