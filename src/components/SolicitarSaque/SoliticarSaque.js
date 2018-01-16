@@ -11,7 +11,7 @@ import {
 } from 'material-ui/Table'
 import { connect } from 'react-redux'
 import NumberFormat from 'react-number-format'
-import { FormatValues, FormatData } from './../../utils'
+import { FormatValues } from './../../utils'
 
 class SolicitarSaque extends Component {
   componentDidMount() {

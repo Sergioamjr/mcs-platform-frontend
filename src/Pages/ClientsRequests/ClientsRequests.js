@@ -20,7 +20,7 @@ import { Request } from './../../Services'
 
 class ClientsRequests extends React.Component {
   componentDidMount() {
-    const { dispatch, auth } = this.props
+    const { dispatch } = this.props
     Request.GetAllRequest()
       .then(({ data }) => dispatch(SetUserHistory(data)))
   }
@@ -85,9 +85,8 @@ class ClientsRequests extends React.Component {
   }
 }
 
-const mapStateToProps = ({ userInfo, auth }, props) => ({
+const mapStateToProps = ({ userInfo }, props) => ({
   userInfo,
-  auth,
   ...props,
 })
 
