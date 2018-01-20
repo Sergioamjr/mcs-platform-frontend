@@ -1,6 +1,6 @@
 const API_CONFIG = {
-  CLOSE_API: 'https://mcs-platform-backend.herokuapp.com/api',
-  AUTH_API: 'https://mcs-platform-backend.herokuapp.com/oapi',
+  CLOSE_API: 'http://localhost:3003/api',
+  AUTH_API: 'http://localhost:3003/oapi',
 }
 
 

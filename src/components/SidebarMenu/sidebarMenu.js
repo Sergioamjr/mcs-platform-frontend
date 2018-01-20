@@ -54,7 +54,7 @@ class SidebarMenu extends React.Component {
             <MenuItem className='menu-item' style={style} leftIcon={<MdFormatAlignCenter style={style} />} containerElement={<Link to='/historico' />} primaryText='Histórico' />
           )}
           <MenuItem className='menu-item' style={style} leftIcon={<FaUserfrom style={style} />} containerElement={<Link to='/dados-pessoais' />} primaryText='Dados Pessoais' />
-          {isAdmin && (
+          {false && (
             <MenuItem className='menu-item' style={style} leftIcon={<MdInsertChart style={style} />} containerElement={<Link to='/cotacao' />} primaryText='Cotação' />
           )}
           <MenuItem onClick={this.handleLoggout} className='menu-item' style={style} leftIcon={<FaArrowCircleOLeft style={style} />} primaryText='Sair' />

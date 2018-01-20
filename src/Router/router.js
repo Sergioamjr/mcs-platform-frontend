@@ -20,6 +20,7 @@ import {
   Register,
 } from './../Pages'
 import { isValidToken, fetchUser } from './../Store/Reducers/Auth'
+import { isUserAdmin } from './../Store/Reducers/userInfo'
 import { Auth, UserInfo } from './../Services'
 
 const NotLogged = () => (
@@ -50,7 +51,7 @@ const UserAdmin = () => (
     <Route exact path='/historico' component={Historico} />
     <Route exact path='/simular' component={Simular} />
     <Route exact path='/dados-pessoais' component={DadosPessoais} />
-    <Route exact path='/cotacao' component={Cotacao} />
+    {/* <Route exact path='/cotacao' component={Cotacao} /> */}
     <Redirect to='/inicio' />
   </Switch>
 )
@@ -59,13 +60,15 @@ class AppRouter extends React.Component {
   componentDidMount() {
     const getStorage = JSON.parse(localStorage.getItem('_mymoney_user'))
     if (getStorage) {
-      const { token } = getStorage
+      const { token, email } = getStorage
       const { dispatch } = this.props
       Auth.validateToken(token)
         .then(({data}) => {
           dispatch(isValidToken(data.valid))
           return data.valid
         })
+        .then(() => UserInfo.isAdmin(email)
+          .then(({ isAdmin }) => dispatch(isUserAdmin(isAdmin))))
         .then(bool => {
           if(bool) {
             dispatch(fetchUser(getStorage))
@@ -75,9 +78,9 @@ class AppRouter extends React.Component {
   }
 
   render() {
-    const { auth: { user, validToken } } = this.props
+    const { userInfo, auth: { user, validToken } } = this.props
     const isLogged = user !== null && validToken !== false
-    const isAdmin = user ? UserInfo.isAdmin(user.email) : false
+    const isAdmin = user ? userInfo.isAdmin : false
     if (isLogged && !isAdmin) {
       axios.defaults.headers.common['authorization'] = user.token
       return(
@@ -104,9 +107,10 @@ class AppRouter extends React.Component {
   }
 }
 
-const mapStateToProps = ({ auth }, props) => {
+const mapStateToProps = ({ auth, userInfo }, props) => {
   return {
     auth,
+    userInfo,
     ...props,
   }
 }
