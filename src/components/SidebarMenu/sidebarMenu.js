@@ -21,11 +21,6 @@ class SidebarMenu extends React.Component {
     super(props)
     this.state = { open: false }
   }
-  componentWillMount = () => {
-    const { user: { email } } = this.props.auth
-    UserInfo.isAdmin(email)
-      .then(({ isAdmin }) => this.props.dispatch(isUserAdmin(isAdmin)))
-  }
 
   handleLoggout = () => this.props.dispatch(isValidToken(false))
 

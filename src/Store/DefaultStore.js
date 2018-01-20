@@ -3,7 +3,10 @@ const DefaultStore = {
   userViewer: {
     actived: 'saque',
   },
-  allUsers: [],
+  usersDetails: {
+    all: [],
+    viewSingle: [],
+  },
   userInfo: {
     history: [],
     requests: [],

@@ -30,7 +30,7 @@ class DadosPessoais extends React.Component {
     return (
       <WrapperPage>
         <FlexContent>
-          <BoxContent grid='w-100 pa3 maa mw7' title='Informações da conta'>
+          <BoxContent grid='w-100 pa3 maa' title='Informações da conta'>
             <PersonalForm onSubmit={this.submit} />
           </BoxContent>
         </FlexContent>

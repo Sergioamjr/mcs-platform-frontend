@@ -2,16 +2,22 @@ import Store from './../../DefaultStore'
 
 const SET_ALL_USERS = 'SET_ALL_USERS'
 const RESET_ALL_USERS = 'RESET_ALL_USERS'
-const { allUsers } = Store
+const SET_SINGLE_USER = 'SET_SINGLE_USER'
+const RESET_SINGLE_USER = 'RESET_SINGLE_USER'
+const { usersDetails } = Store
 
 
-export default function reducer(state = allUsers, action) {
+export default function reducer(state = usersDetails, action) {
   const { type, payload } = action
   switch (type) {
     case RESET_ALL_USERS:
-      return { ...state, allUsers: [] }
+      return { ...state, all: [], viewSingle: [] }
     case SET_ALL_USERS:
-      return { ...state, ...payload }
+      return { ...state, all: { ...payload } }
+    case SET_SINGLE_USER:
+      return { ...state, viewSingle: { ...payload } }
+    case RESET_SINGLE_USER:
+      return { ...state, viewSingle: [] }
     default:
       return state
   }
@@ -24,8 +30,22 @@ export function SetAllUsers(payload) {
   }
 }
 
+export function SetSingleUser(payload) {
+  return {
+    type: SET_SINGLE_USER,
+    payload,
+  }
+}
+
 export function ResetAllUsers() {
   return {
     type: RESET_ALL_USERS,
   }
 }
+
+export function ResetSingleUser() {
+  return {
+    type: RESET_SINGLE_USER,
+  }
+}
+
