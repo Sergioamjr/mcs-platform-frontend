@@ -11,6 +11,14 @@ class UserInfo {
     })
   }
 
+  static GetAllUser() {
+    return new Promise((resolve, reject) => {
+      axios.get(`${API_CONFIG.CLOSE_API}/userinfo`)
+        .then(resolve)
+        .catch(reject)
+    })
+  }
+
   static createUser(values) {
     return this.submitUser(values, 'post')
   }

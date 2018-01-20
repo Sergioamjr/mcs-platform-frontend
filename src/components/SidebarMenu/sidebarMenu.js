@@ -53,6 +53,9 @@ class SidebarMenu extends React.Component {
           {!isAdmin && (
             <MenuItem className='menu-item' style={style} leftIcon={<MdFormatAlignCenter style={style} />} containerElement={<Link to='/historico' />} primaryText='Histórico' />
           )}
+          {isAdmin && (
+            <MenuItem className='menu-item' style={style} leftIcon={<MdAttachMoney style={style} />} containerElement={<Link to='/clientes' />} primaryText='Clientes Cadastrados' />
+          )}
           <MenuItem className='menu-item' style={style} leftIcon={<FaUserfrom style={style} />} containerElement={<Link to='/dados-pessoais' />} primaryText='Dados Pessoais' />
           {false && (
             <MenuItem className='menu-item' style={style} leftIcon={<MdInsertChart style={style} />} containerElement={<Link to='/cotacao' />} primaryText='Cotação' />

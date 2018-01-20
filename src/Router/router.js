@@ -14,8 +14,9 @@ import {
   Simular,
   Lancamento,
   Home,
-  Cotacao,
+  // Cotacao,
   Login,
+  AllUsers,
   ClientsRequests,
   Register,
 } from './../Pages'
@@ -51,6 +52,7 @@ const UserAdmin = () => (
     <Route exact path='/historico' component={Historico} />
     <Route exact path='/simular' component={Simular} />
     <Route exact path='/dados-pessoais' component={DadosPessoais} />
+    <Route exact path='/clientes' component={AllUsers} />
     {/* <Route exact path='/cotacao' component={Cotacao} /> */}
     <Redirect to='/inicio' />
   </Switch>
