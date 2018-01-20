@@ -4,7 +4,7 @@ import TextField from 'material-ui/TextField'
 import { Link, withRouter } from 'react-router-dom'
 import RaisedButton from 'material-ui/RaisedButton'
 import toastr from 'toastr'
-import { updatePassword, updateEmail } from './../../Store/Reducers/Login'
+import { updatePassword, updateEmail, ResetLogin } from './../../Store/Reducers/Login'
 import { Auth } from './../../Services'
 import { fetchUser } from './../../Store/Reducers/Auth'
 
@@ -22,6 +22,7 @@ class FormLogin extends React.Component {
       .then(data => dispatch(fetchUser(data)))
       .then(() => history.push('/inicio'))
       .catch(() => toastr.error('E-mail ou Senha inválidos.'))
+      .finally(() => dispatch(ResetLogin()))
     e.preventDefault()
   }
 

@@ -5,7 +5,7 @@ import BoxContent from './../../components/BoxContent'
 import FlexContent from './../../components/FlexContent'
 import { UserInfo } from './../../Services'
 import { GetPersonalUserInfo } from './../../Store/Reducers/userInfo'
-import { SetAllUsers, ResetAllUsers, SetSingleUser, ResetSingleUser } from './../../Store/Reducers/AllUsers/AllUsers'
+import { SetAllUsers, ResetAllUsers, SetSingleUser, ResetSingleUser } from './../../Store/Reducers/AllUsers'
 import { EmptyContent, PersonalForm } from './../../components'
 import {
   Table,

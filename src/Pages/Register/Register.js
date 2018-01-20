@@ -4,15 +4,16 @@ import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import { Link, withRouter } from 'react-router-dom'
 import toastr from 'toastr'
-import { updatePassword, updateEmail, updateName, updateRepassword } from './../../Store/Reducers/Signup'
+import { ResetLogin } from './../../Store/Reducers/Login'
+import { SingupUpdatePassword, SingupUpdateEmail, SingupUpdateName, SingupUpdateRepassword, ResetSignup } from './../../Store/Reducers/Signup'
 import { Auth } from './../../Services'
 import { fetchUser } from './../../Store/Reducers/Auth'
 
 class SignupForm extends React.Component {
-  changeEmail = v => this.props.dispatch(updateEmail(v.target.value))
-  changeName = v => this.props.dispatch(updateName(v.target.value))
-  changeRepassword = v => this.props.dispatch(updateRepassword(v.target.value))
-  changePassword = v => this.props.dispatch(updatePassword(v.target.value))
+  changeEmail = v => this.props.dispatch(SingupUpdateEmail(v.target.value))
+  changeName = v => this.props.dispatch(SingupUpdateName(v.target.value))
+  changeRepassword = v => this.props.dispatch(SingupUpdateRepassword(v.target.value))
+  changePassword = v => this.props.dispatch(SingupUpdatePassword(v.target.value))
 
   handleSubmit = (e) => {
     const { signup, dispatch, history } = this.props
@@ -29,10 +30,14 @@ class SignupForm extends React.Component {
       Auth.signupSubmit({
         name, email, password, repassword,
       })
-      .then(({ data }) => data)
-      .then(data => dispatch(fetchUser(data)))
-      .then(() => history.push('/inicio'))
-        .catch(data => toastr.error('E-mail ou Senha inválidos.'))
+        .then(({ data }) => data)
+        .then(data => dispatch(fetchUser(data)))
+        .then(() => history.push('/inicio'))
+        .catch(() => toastr.error('E-mail ou Senha inválidos.'))
+        .finally(() => {
+          dispatch(ResetSignup())
+          dispatch(ResetLogin())
+        })
     }
     e.preventDefault()
   }

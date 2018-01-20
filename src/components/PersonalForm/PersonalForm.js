@@ -29,7 +29,7 @@ class PersonalForm extends React.Component {
           <div className='mb4 flex flex-wrap'>
             <Field disabled={isDisabled} component='input' name='_id' type='hidden' />
             <div className='w-100 w-50-ns ph3'>
-              <Field disabled={isDisabled} name='nome' id='nome' fullWidth floatingLabelText='Nome' component={TextField} type='text' />
+              <Field disabled={true} name='nome' id='nome' fullWidth floatingLabelText='Nome' component={TextField} type='text' />
             </div>
             <div className='w-100 w-50-ns ph3'>
               <Field disabled={isDisabled} name='sobrenome' fullWidth floatingLabelText='Sobrenome' id='sobrenome' component={TextField} type='text' />

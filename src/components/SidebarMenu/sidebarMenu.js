@@ -12,17 +12,20 @@ import MdAttachMoney from 'react-icons/lib/md/attach-money'
 import MdContentPaste from 'react-icons/lib/md/content-paste'
 import FaArrowCircleOLeft from 'react-icons/lib/fa/arrow-circle-o-left'
 import './sidebar.css'
-import { UserInfo } from './../../Services'
-import { isUserAdmin } from './../../Store/Reducers/userInfo'
+import { ResetUserInfo } from './../../Store/Reducers/userInfo'
 import { isValidToken } from './../../Store/Reducers/Auth'
-
+import { ResetAllUsers } from './../../Store/Reducers/AllUsers'
 class SidebarMenu extends React.Component {
   constructor(props) {
     super(props)
     this.state = { open: false }
   }
 
-  handleLoggout = () => this.props.dispatch(isValidToken(false))
+  handleLoggout = () => {
+    this.props.dispatch(isValidToken(false))
+    this.props.dispatch(ResetUserInfo())
+    this.props.dispatch(ResetAllUsers())
+  }
 
   handleToggle = () => this.setState({ open: !this.state.open });
 

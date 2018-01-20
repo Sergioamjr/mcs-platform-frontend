@@ -6,13 +6,14 @@ import FlexContent from './../../components/FlexContent'
 import { PersonalForm } from './../../components'
 import { UserInfo } from './../../Services'
 import { showToastr } from './../../utils'
-import { GetPersonalUserInfo } from './../../Store/Reducers/userInfo'
+import { GetPersonalUserInfo, SetUserStorageData } from './../../Store/Reducers/userInfo'
 
 class DadosPessoais extends React.Component {
   componentDidMount() {
-    const { user: { email } } = this.props.auth
+    const { user: { email, name: nome } } = this.props.auth
     UserInfo.getUserByEmail(email)
       .then(response => this.props.dispatch(GetPersonalUserInfo(response)))
+      .then(() => this.props.dispatch(SetUserStorageData({ email, nome })))
   }
 
   submit = (values) => {
@@ -27,6 +28,7 @@ class DadosPessoais extends React.Component {
   }
 
   render() {
+    console.log(this.props.userInfo.personal)
     return (
       <WrapperPage>
         <FlexContent>

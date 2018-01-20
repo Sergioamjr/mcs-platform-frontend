@@ -7,12 +7,15 @@ const GET_REQUESTS = 'GET_REQUESTS'
 const GET_PAYMENTS = 'GET_PAYMENTS'
 const RESET_USERINFO = 'RESET_USERINFO'
 const GET_PERSONAL_USER_INFO = 'GET_PERSONAL_USER_INFO'
+const SET_PERSONAL_USER_STORAGE_DATA = 'SET_PERSONAL_USER_STORAGE_DATA'
 const IS_ADMIN = 'IS_ADMIN'
 
 export default function reducer(state = userInfo, action = {}) {
   switch (action.type) {
     case GET_PERSONAL_USER_INFO:
       return { ...state, personal: action.payload }
+    case SET_PERSONAL_USER_STORAGE_DATA:
+      return { ...state, personal: { ...state.personal, email: action.payload.email, nome: action.payload.nome } }
     case SET_HISTORY:
       return { ...state, history: action.payload }
     case GET_REQUESTS:
@@ -32,6 +35,13 @@ export default function reducer(state = userInfo, action = {}) {
 export function GetUserPayments(payload) {
   return {
     type: GET_PAYMENTS,
+    payload,
+  }
+}
+
+export function SetUserStorageData(payload) {
+  return {
+    type: SET_PERSONAL_USER_STORAGE_DATA,
     payload,
   }
 }
