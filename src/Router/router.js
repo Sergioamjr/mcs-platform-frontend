@@ -84,6 +84,7 @@ class AppRouter extends React.Component {
     const isLogged = user !== null && validToken !== false
     const isAdmin = user ? userInfo.isAdmin : false
     if (isLogged && !isAdmin) {
+      console.log('not admin')
       axios.defaults.headers.common['authorization'] = user.token
       return(
         <Router>
@@ -91,6 +92,7 @@ class AppRouter extends React.Component {
         </Router>
       )
     } else if (isLogged && isAdmin) {
+      console.log('admin')
       axios.defaults.headers.common['authorization'] = user.token
       return(
         <Router>
@@ -98,6 +100,7 @@ class AppRouter extends React.Component {
         </Router>
       )
     } else if (!isLogged) {
+      console.log('not logado')
       return(
         <Router>
           <NotLogged />

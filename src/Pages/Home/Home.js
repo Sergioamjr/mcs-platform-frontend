@@ -8,6 +8,7 @@ import {
   TableRowColumn,
 } from 'material-ui/Table'
 import { connect } from 'react-redux'
+import { ResumeAmount } from './../../components'
 import WrapperPage from './../../components/wrapper'
 import BoxContent from './../../components/BoxContent'
 import FlexContent from './../../components/FlexContent'
@@ -46,49 +47,7 @@ class Home extends React.Component {
     return (
       <WrapperPage>
         {payments && (
-          <FlexContent>
-            <BoxContent grid='w-50 w-20-ns pa3'>
-              <div className='f3 items-center bg-green c-white fw4 tc  pa4 ph3'>
-                <span>
-                  <p className='c-white mb1 f5'>Investimento</p>
-                  <p className='c-white f4'>{FormatValues(payments.investimento) || FormatValues(0)}</p>
-                </span>
-              </div>
-            </BoxContent>
-            <BoxContent grid='w-50 w-20-ns pa3'>
-              <div className='f3 items-center bg-green c-white fw4 tc  pa4 ph3'>
-                <span>
-                  <p className='c-white mb1 f5'>Congelado</p>
-                  <p className='c-white f4'>{FormatValues(payments.congelado) || FormatValues(0)}</p>
-                </span>
-              </div>
-            </BoxContent>
-            <BoxContent grid='w-50 w-20-ns pa3'>
-              <div className='f3 items-center bg-green c-white fw4 tc  pa4 ph3'>
-                <span>
-                  <p className='c-white mb1 f5'>Total de rendimentos</p>
-                  <p className='c-white f4'>{FormatValues(payments.rendimento) || FormatValues(0)}</p>
-                </span>
-              </div>
-            </BoxContent>
-            <BoxContent grid='w-50 w-20-ns pa3'>
-              <div className='f3 items-center bg-green c-white fw4 tc  pa4 ph3'>
-                <span>
-                  <p className='c-white mb1 f5'>Total Sacado</p>
-                  <p className='c-white f4'>{FormatValues(payments.saque) || FormatValues(0)}</p>
-                </span>
-              </div>
-            </BoxContent>
-            <BoxContent grid='w-50 w-20-ns pa3'>
-              <div className='f3 items-center bg-green c-white fw4 tc  pa4 ph3'>
-                <span>
-                  <p className='c-white mb1 f5'>Saldo Atual</p>
-                  <p className='c-white f4'>{FormatValues(payments.totalAmount) || FormatValues(0)}</p>
-                </span>
-              </div>
-            </BoxContent>
-
-          </FlexContent>
+          <ResumeAmount {...payments} />
         )}
         {this.props.userInfo.requests.length > 0 && (
           <FlexContent>

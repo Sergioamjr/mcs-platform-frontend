@@ -6,6 +6,7 @@ const DefaultStore = {
   usersDetails: {
     all: [],
     viewSingle: [],
+    paymentsHistory: [],
   },
   userInfo: {
     history: [],
