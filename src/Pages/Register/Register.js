@@ -3,24 +3,16 @@ import { connect } from 'react-redux'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import { Link, withRouter } from 'react-router-dom'
+import FormLogin from './../../components/FormLogin'
 import toastr from 'toastr'
-import { ResetLogin } from './../../Store/Reducers/Login'
-import { SingupUpdatePassword, SingupUpdateEmail, SingupUpdateName, SingupUpdateRepassword, ResetSignup } from './../../Store/Reducers/Signup'
 import { Auth } from './../../Services'
 import { fetchUser } from './../../Store/Reducers/Auth'
 
 class SignupForm extends React.Component {
-  changeEmail = v => this.props.dispatch(SingupUpdateEmail(v.target.value))
-  changeName = v => this.props.dispatch(SingupUpdateName(v.target.value))
-  changeRepassword = v => this.props.dispatch(SingupUpdateRepassword(v.target.value))
-  changePassword = v => this.props.dispatch(SingupUpdatePassword(v.target.value))
 
-  handleSubmit = (e) => {
-    const { signup, dispatch, history } = this.props
-    const {
-      name, email, password, repassword,
-    } = signup
-    if (name === null || email === null || password === null || repassword === null) {
+  handleSubmit = ({ nome: name, email, password, repassword }) => {
+    const { dispatch, history } = this.props
+    if (!name || !email || !password || !repassword) {
       toastr.error('Preencha todos os dados.')
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
       toastr.error('Digite um E-mail válido.')
@@ -34,59 +26,15 @@ class SignupForm extends React.Component {
         .then(data => dispatch(fetchUser(data)))
         .then(() => history.push('/inicio'))
         .catch(() => toastr.error('E-mail ou Senha inválidos.'))
-        .finally(() => {
-          dispatch(ResetSignup())
-          dispatch(ResetLogin())
-        })
     }
-    e.preventDefault()
   }
 
   render() {
     return (
       <div className='w-100 h-100vh bg-silver'>
         <div className='fw4 pa4 ph3'>
-          <form className='tl w-m-400 maa bg-white pa3' onSubmit={this.handleSubmit}>
-            <h2>Crie sua conta</h2>
-            <div>
-              <TextField
-                className='mb3 mr3 db'
-                fullWidth
-                onChange={this.changeName}
-                floatingLabelText='Seu nome'
-              />
-            </div>
-            <div>
-              <TextField
-                className='mb3 mr3 db'
-                fullWidth
-                onChange={this.changeEmail}
-                floatingLabelText='Email'
-              />
-            </div>
-            <div className='mb3'>
-              <TextField
-                className='mb3 mr3 db'
-                type='password'
-                fullWidth
-                onChange={this.changePassword}
-                floatingLabelText='Sua Senha'
-              />
-            </div>
-            <div className='mb3'>
-              <TextField
-                className='mb3 mr3 db'
-                type='password'
-                fullWidth
-                onChange={this.changeRepassword}
-                floatingLabelText='Confirme sua Senha'
-              />
-            </div>
-            <div className='flex justify-between'>
-              <RaisedButton label='Enviar' type='submit' primary />
-              <Link to='/'>Fazer login</Link>
-            </div>
-          </form>
+          <h1>MCS Intermedicações</h1>
+          <FormLogin register onSubmit={this.handleSubmit} />
         </div>
       </div>
     )

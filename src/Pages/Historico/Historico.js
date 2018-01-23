@@ -2,6 +2,7 @@ import React from 'react'
 import WrapperPage from './../../components/wrapper'
 import BoxContent from './../../components/BoxContent'
 import FlexContent from './../../components/FlexContent'
+import { EmptyContent } from './../../components'
 import {
   Table,
   TableBody,
@@ -43,7 +44,7 @@ class Historico extends React.Component {
       <WrapperPage>
         <FlexContent>
           <BoxContent grid='w-100 maa pa3' title='Histórico'>
-            {history ? (
+            {history[0] ? (
               <Table selectable={false}>
                 <TableHeader displaySelectAll={false} enableSelectAll={false} adjustForCheckbox={false}>
                   <TableRow>
@@ -57,7 +58,7 @@ class Historico extends React.Component {
                   {this.renderUserHistory()}
                 </TableBody>
               </Table>
-            ) : <p className='pa3 tc'>Sem histórico de lançamento ainda.</p>}
+            ) : <EmptyContent name='histórico' />}
           </BoxContent>
         </FlexContent>
       </WrapperPage>

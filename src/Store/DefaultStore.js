@@ -18,10 +18,6 @@ const DefaultStore = {
     user: null,
     validToken: false,
   },
-  login: {
-    email: null,
-    password: null,
-  },
   signup: {
     name: null,
     email: null,

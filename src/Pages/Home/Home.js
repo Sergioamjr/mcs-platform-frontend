@@ -78,7 +78,7 @@ class Home extends React.Component {
           </BoxContent>
 
           <BoxContent grid='w-100 pa3' title='Histórico de lançamentos'>
-            {history ? (
+            {history[0] ? (
               <Table selectable={false}>
                 <TableHeader displaySelectAll={false} enableSelectAll={false} adjustForCheckbox={false}>
                   <TableRow>

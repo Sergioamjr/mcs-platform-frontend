@@ -1,64 +1,75 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import TextField from 'material-ui/TextField'
-import { Link, withRouter } from 'react-router-dom'
+import { TextField } from 'redux-form-material-ui'
+import { Link } from 'react-router-dom'
 import RaisedButton from 'material-ui/RaisedButton'
-import toastr from 'toastr'
-import { updatePassword, updateEmail, ResetLogin } from './../../Store/Reducers/Login'
-import { Auth } from './../../Services'
-import { fetchUser } from './../../Store/Reducers/Auth'
+import { Field, reduxForm } from 'redux-form'
 
 class FormLogin extends React.Component {
 
-  changeEmail = v => this.props.dispatch(updateEmail(v.target.value))
-
-  changePassword = v => this.props.dispatch(updatePassword(v.target.value))
-
-  handleSubmit = (e) => {
-    const { login, dispatch, history } = this.props
-    const { email, password } = login
-    Auth.loginSubmit({ email, password })
-      .then(({ data }) => data)
-      .then(data => dispatch(fetchUser(data)))
-      .then(() => history.push('/inicio'))
-      .catch(() => toastr.error('E-mail ou Senha inválidos.'))
-      .finally(() => dispatch(ResetLogin()))
-    e.preventDefault()
-  }
-
   render() {
+    const { register, handleSubmit } = this.props
     return (
-      <form className='tl w-m-400 maa bg-white pa3' onSubmit={this.handleSubmit}>
-        <h2>Por Favor, faça login.</h2>
+      <form method='post' className='tl w-m-400 maa bg-white pa3' onSubmit={handleSubmit}>
+        <h2>{register ? 'Criar conta' : 'Fazer login'}</h2>
+        {
+          register && (
+            <div>
+              <Field
+                className='mb3 mr3 db'
+                fullWidth
+                floatingLabelText='Seu nome'
+                id='nome'
+                name='nome'
+                component={TextField}
+                type='text'
+              />
+            </div>
+          )
+        }
         <div>
-          <TextField
+          <Field
             className='mb3 mr3 db'
             fullWidth
-            onChange={this.changeEmail}
-            floatingLabelText='Email'
+            floatingLabelText='E-mail'
+            id='email'
+            name='email'
+            component={TextField}
+            type='text'
           />
         </div>
         <div className='mb3'>
-          <TextField
+          <Field
             className='mb3 mr3 db'
-            type='password'
             fullWidth
-            onChange={this.changePassword}
-            floatingLabelText='Sua Senha'
+            floatingLabelText='Password'
+            id='password'
+            name='password'
+            component={TextField}
+            type='password'
           />
         </div>
+        {
+          register && (
+            <div className='mb3'>
+              <Field
+                className='mb3 mr3 db'
+                fullWidth
+                floatingLabelText='Confirme sua senha'
+                id='repassword'
+                name='repassword'
+                component={TextField}
+                type='password'
+              />
+            </div>
+          )
+        }
         <div className='flex justify-between'>
           <RaisedButton label='Enviar' type='submit' primary />
-          <Link to='/registro'>Criar conta</Link>
+          <Link to={register ? '/login' : '/registro'}>{register ? 'Fazer login' : 'Criar conta'}</Link>
         </div>
       </form>
     )
   }
 }
 
-const mapStateToProps = ({ login }, props) => ({
-  login,
-  ...props,
-})
-
-export default connect(mapStateToProps)(withRouter(FormLogin))
+export default reduxForm({ form: 'login' })(FormLogin)
