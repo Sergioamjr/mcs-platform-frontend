@@ -47,6 +47,7 @@ export function SetUserStorageData(payload) {
 }
 
 export function SetUserHistory(payload) {
+  console.log('histry', payload)
   return {
     type: SET_HISTORY,
     payload,

@@ -3,7 +3,7 @@ import BoxContent from './../BoxContent'
 import FlexContent from './../FlexContent'
 import { FormatValues } from './../../utils'
 
-const ResumeAmount = ({ investimento, congelado, rendimento, total }) => (
+const ResumeAmount = ({ investimento, congelado, rendimento, totalAmount: total }) => (
   <FlexContent>
     <BoxContent grid='w-50 w-25-ns pa3'>
       <div className='f3 items-center bg-green c-white fw4 tc  pa4 ph3'>

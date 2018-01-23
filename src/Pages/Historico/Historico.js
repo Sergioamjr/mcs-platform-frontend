@@ -43,7 +43,7 @@ class Historico extends React.Component {
       <WrapperPage>
         <FlexContent>
           <BoxContent grid='w-100 maa pa3' title='Histórico'>
-            {history.length > 0 ? (
+            {history ? (
               <Table selectable={false}>
                 <TableHeader displaySelectAll={false} enableSelectAll={false} adjustForCheckbox={false}>
                   <TableRow>

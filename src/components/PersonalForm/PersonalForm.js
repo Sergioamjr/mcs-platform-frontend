@@ -6,16 +6,24 @@ import DatePicker from 'material-ui/DatePicker'
 import { TextField } from 'redux-form-material-ui'
 import { connect } from 'react-redux'
 
-const DataPickerField = ({ input }, props) => (
-  <DatePicker
-    {...input}
-    {...props}
-    fullWidth
-    style={{ marginTop: '24px' }}
-    onChange={(event, value) => { input.onChange(value) }}
-    value={input.value !== '' ? new Date(input.value) : new Date()}
-  />
-)
+class DataPickerField extends React.Component {
+  render() {
+    const { props } = this
+    const { input } = props
+    const { location: { pathname }} = window
+    return (
+      <DatePicker
+        {...input}
+        {...props}
+        fullWidth
+        disabled={pathname === '/clientes'}
+        style={{ marginTop: '24px' }}
+        onChange={(event, value) => { input.onChange(value) }}
+        value={input.value !== '' ? new Date(input.value) : new Date()}
+      />
+    )
+  }
+}
 
 class PersonalForm extends React.Component {
   render() {

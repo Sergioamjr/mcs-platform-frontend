@@ -54,6 +54,7 @@ class AllUsers extends React.Component {
 
   render() {
     const { usersDetails } = this.props
+    console.log(usersDetails.paymentsHistory)
     return (
       <WrapperPage>
         <FlexContent>
