@@ -11,10 +11,12 @@ import MdToday from 'react-icons/lib/md/today'
 import MdAttachMoney from 'react-icons/lib/md/attach-money'
 import MdContentPaste from 'react-icons/lib/md/content-paste'
 import FaArrowCircleOLeft from 'react-icons/lib/fa/arrow-circle-o-left'
-import './sidebar.css'
+import FaGroup from 'react-icons/lib/fa/group'
 import { ResetUserInfo } from './../../Store/Reducers/userInfo'
 import { isValidToken } from './../../Store/Reducers/Auth'
 import { ResetAllUsers } from './../../Store/Reducers/AllUsers'
+import './sidebar.css'
+
 class SidebarMenu extends React.Component {
   constructor(props) {
     super(props)
@@ -30,8 +32,8 @@ class SidebarMenu extends React.Component {
   handleToggle = () => this.setState({ open: !this.state.open });
 
   render() {
-    const { classes, userInfo } = this.props
-    const { isAdmin } = userInfo
+    const { classes, auth } = this.props
+    const { isAdmin } = auth
     const style = { color: '#fff', textAlign: 'left' }
     return (
       <div className={`${classes} sidebar bg-dark fixed left0-m`}>
@@ -52,7 +54,7 @@ class SidebarMenu extends React.Component {
             <MenuItem className='menu-item' style={style} leftIcon={<MdFormatAlignCenter style={style} />} containerElement={<Link to='/historico' />} primaryText='Histórico' />
           )}
           {isAdmin && (
-            <MenuItem className='menu-item' style={style} leftIcon={<MdAttachMoney style={style} />} containerElement={<Link to='/clientes' />} primaryText='Clientes Cadastrados' />
+            <MenuItem className='menu-item' style={style} leftIcon={<FaGroup style={style} />} containerElement={<Link to='/clientes' />} primaryText='Clientes Cadastrados' />
           )}
           <MenuItem className='menu-item' style={style} leftIcon={<FaUserfrom style={style} />} containerElement={<Link to='/dados-pessoais' />} primaryText='Dados Pessoais' />
           {false && (
@@ -65,10 +67,9 @@ class SidebarMenu extends React.Component {
   }
 }
 
-const mapStateToProps = ({ userInfo, auth }, props) => {
+const mapStateToProps = ({ auth }, props) => {
   return {
     auth,
-    userInfo,
     ...props,
   }
 }

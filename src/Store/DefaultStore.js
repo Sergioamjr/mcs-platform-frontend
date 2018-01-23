@@ -17,12 +17,7 @@ const DefaultStore = {
   auth: {
     user: null,
     validToken: false,
-  },
-  signup: {
-    name: null,
-    email: null,
-    password: null,
-    repassword: null,
+    isAdmin: false,
   },
   lancamento: {},
   payments: [],

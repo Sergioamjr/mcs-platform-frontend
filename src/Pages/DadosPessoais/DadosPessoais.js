@@ -28,7 +28,6 @@ class DadosPessoais extends React.Component {
   }
 
   render() {
-    console.log(this.props.userInfo.personal)
     return (
       <WrapperPage>
         <FlexContent>

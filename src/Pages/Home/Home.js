@@ -50,7 +50,6 @@ class Home extends React.Component {
 
   render() {
     const { userInfo: { payments, requests, history } } = this.props
-    console.log(this.props.userInfo)
     return (
       <WrapperPage>
         {payments && (

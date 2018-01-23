@@ -20,8 +20,7 @@ import {
   ClientsRequests,
   Register,
 } from './../Pages'
-import { isValidToken, fetchUser } from './../Store/Reducers/Auth'
-import { isUserAdmin } from './../Store/Reducers/userInfo'
+import { isValidToken, fetchUser, isUserAdmin } from './../Store/Reducers/Auth'
 import { Auth, UserInfo } from './../Services'
 
 const NotLogged = () => (
@@ -80,19 +79,17 @@ class AppRouter extends React.Component {
   }
 
   render() {
-    const { userInfo, auth: { user, validToken } } = this.props
+    const { auth: { user, validToken, isAdmin } } = this.props
     const isLogged = user !== null && validToken !== false
-    const isAdmin = user ? userInfo.isAdmin : false
-    if (isLogged && !isAdmin) {
-      // console.log('not admin')
+    const Admin = user ? isAdmin : false
+    if (isLogged && !Admin) {
       axios.defaults.headers.common['authorization'] = user.token
       return(
         <Router>
           <UserLogged />
         </Router>
       )
-    } else if (isLogged && isAdmin) {
-      // console.log('admin')
+    } else if (isLogged && Admin) {
       axios.defaults.headers.common['authorization'] = user.token
       return(
         <Router>
@@ -100,7 +97,6 @@ class AppRouter extends React.Component {
         </Router>
       )
     } else if (!isLogged) {
-      // console.log('not logado')
       return(
         <Router>
           <NotLogged />
@@ -112,10 +108,9 @@ class AppRouter extends React.Component {
   }
 }
 
-const mapStateToProps = ({ auth, userInfo }, props) => {
+const mapStateToProps = ({ auth }, props) => {
   return {
     auth,
-    userInfo,
     ...props,
   }
 }
