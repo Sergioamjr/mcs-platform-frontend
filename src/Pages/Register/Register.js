@@ -1,10 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import TextField from 'material-ui/TextField'
-import RaisedButton from 'material-ui/RaisedButton'
-import { Link, withRouter } from 'react-router-dom'
-import FormLogin from './../../components/FormLogin'
+import { withRouter } from 'react-router-dom'
 import toastr from 'toastr'
+import FormLogin from './../../components/FormLogin'
 import { Auth } from './../../Services'
 import { fetchUser } from './../../Store/Reducers/Auth'
 
