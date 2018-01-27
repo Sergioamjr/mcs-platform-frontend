@@ -36,16 +36,6 @@ class UserInfo {
     })
   }
 
-  static getUserInfo(user = '') {
-    return new Promise((resolve, reject) => {
-      axios.get(`${API_CONFIG.CLOSE_API}/payment/search?user=${user}`)
-        .then(({ data }) => data)
-        .then(TransformPaymentRequest)
-        .then(resolve)
-        .catch(reject)
-    })
-  }
-
   static getUserByEmail(email = '') {
     return new Promise((resolve, reject) => {
       axios.get(`${API_CONFIG.CLOSE_API}/userinfo/searchbyemail?email=${email}`)

@@ -20,7 +20,7 @@ class Payments {
     })
   }
 
-  static getUserInfo(user = '') {
+  static getUserPayments(user = '') {
     return new Promise((resolve, reject) => {
       axios.get(`${API_CONFIG.CLOSE_API}/payment/search?user=${user}`)
         .then(({ data }) => data)
@@ -33,6 +33,7 @@ class Payments {
   static GetAllPayments() {
     return new Promise((resolve, reject) => {
       axios.get(`${API_CONFIG.CLOSE_API}/payment/`)
+        .then(({ data }) => data)
         .then(resolve)
         .catch(reject)
     })

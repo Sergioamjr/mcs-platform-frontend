@@ -19,7 +19,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 class UsersRows extends React.Component {
   viewSingleUserDetails = (user) => {
-    UserInfo.getUserInfo(user.email)
+    UserInfo.getUserPayments(user.email)
       .then((data) => this.props.dispatch(SetPaymentsHistory(data)))
       .then(() => this.props.dispatch(SetSingleUser(user)))
       .then(() => this.props.dispatch(GetPersonalUserInfo(user)))

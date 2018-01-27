@@ -12,47 +12,52 @@ import { ResumeAmount, EmptyContent } from './../../components'
 import WrapperPage from './../../components/wrapper'
 import BoxContent from './../../components/BoxContent'
 import FlexContent from './../../components/FlexContent'
-import { Request, UserInfo } from './../../Services'
+import { Request, Payments } from './../../Services'
 import { GetUserRequests, GetUserPayments, SetUserHistory } from './../../Store/Reducers/userInfo'
 import { FormatValues, FormatData, IsValueFrozen } from './../../utils'
-// import { getUserInfo } from './../../Store/Reducers/'
 
 class Home extends React.Component {
   componentDidMount = () => {
-    const { dispatch, auth } = this.props
-    UserInfo.getUserInfo(auth.user.email)
-      .then(data => dispatch(GetUserPayments(data)))
-      .then(() => Request.getUserRequests(auth.user.email)
-        .then(({ data }) => dispatch(GetUserRequests(data))))
-      .then(() => UserInfo.getUserInfo(auth.user.email)
-        .then(data => dispatch(SetUserHistory(data))))
+    const { dispatch, auth: { isAdmin, user: { email } } } = this.props
+
+    const QueryPayments = isAdmin ? Payments.GetAllPayments() : Payments.getUserPayments(email)
+    const QueryRequests = isAdmin ? Request.GetAllRequest() : Request.getUserRequests(email)
+
+    QueryPayments
+      .then((data) => {
+        dispatch(GetUserPayments(data))
+        dispatch(SetUserHistory(data))
+      })
+
+    QueryRequests
+      .then(({ data }) => dispatch(GetUserRequests(data)))
   }
 
-  renderRequetsList = (items, status = 'pedidos') => {
-    return items.map((item) => {
-      return (
-        <TableRow key={item._id} className='striped--near-white'>
-          <TableRowColumn>{FormatData(item.date || item.data)}</TableRowColumn>
-          <TableRowColumn>{item.action || item.tipo}</TableRowColumn>
-          <TableRowColumn>{FormatValues(item.value)}</TableRowColumn>
-          <TableRowColumn>{
-            status === 'history' ?
-              IsValueFrozen(item.data, item.tipo) ?
-                'CONGELADO' :
-                'LIBERADO' :
-                item.status ?
-                  item.status :
-                  'PENDENTE'}</TableRowColumn>
-        </TableRow>
+  renderRequetsList = (items, status = 'pedidos', isAdmin) => (
+    items.slice(0, 5).map(item => (
+      <TableRow key={item._id} className='striped--near-white'>
+        <TableRowColumn>{FormatData(item.date || item.data)}</TableRowColumn>
+        {isAdmin && <TableRowColumn>{item.userName}</TableRowColumn>}
+        <TableRowColumn>{item.action || item.tipo}</TableRowColumn>
+        <TableRowColumn>{FormatValues(item.value)}</TableRowColumn>
+        <TableRowColumn>{
+          status === 'history' ?
+            IsValueFrozen(item.data, item.tipo) ?
+              'CONGELADO' :
+              'LIBERADO' :
+              item.status ?
+                item.status :
+                'PENDENTE'}</TableRowColumn>
+      </TableRow>
       )
-    })
-  }
+    )
+  )
 
   render() {
-    const { userInfo: { payments, requests, history } } = this.props
+    const { userInfo: { payments, requests, history }, auth: { isAdmin } } = this.props
     return (
       <WrapperPage>
-        {payments && (
+        {(payments && !isAdmin) && (
           <ResumeAmount {...payments} />
         )}
         <FlexContent>
@@ -62,13 +67,14 @@ class Home extends React.Component {
                 <TableHeader displaySelectAll={false} enableSelectAll={false} adjustForCheckbox={false}>
                   <TableRow>
                     <TableHeaderColumn>Data</TableHeaderColumn>
+                    {isAdmin && <TableHeaderColumn>Cliente</TableHeaderColumn>}
                     <TableHeaderColumn>Ação</TableHeaderColumn>
                     <TableHeaderColumn>Valor</TableHeaderColumn>
                     <TableHeaderColumn>Status</TableHeaderColumn>
                   </TableRow>
                 </TableHeader>
                 <TableBody displayRowCheckbox={false}>
-                  {this.renderRequetsList(requests)}
+                  {this.renderRequetsList(requests, '', isAdmin)}
                 </TableBody>
               </Table>
             ) : (
@@ -76,19 +82,20 @@ class Home extends React.Component {
             )}
           </BoxContent>
 
-          <BoxContent grid='w-100 pa3' title='Histórico de lançamentos'>
+          <BoxContent grid='w-100 pa3' title='Últimos lançamentos'>
             {history[0] ? (
               <Table selectable={false}>
                 <TableHeader displaySelectAll={false} enableSelectAll={false} adjustForCheckbox={false}>
                   <TableRow>
                     <TableHeaderColumn>Data</TableHeaderColumn>
+                    {isAdmin && <TableHeaderColumn>Cliente</TableHeaderColumn>}
                     <TableHeaderColumn>Ação</TableHeaderColumn>
                     <TableHeaderColumn>Valor</TableHeaderColumn>
                     <TableHeaderColumn>Status</TableHeaderColumn>
                   </TableRow>
                 </TableHeader>
                 <TableBody displayRowCheckbox={false}>
-                  {this.renderRequetsList(history, 'history')}
+                  {this.renderRequetsList(history, 'history', isAdmin)}
                 </TableBody>
               </Table>
             ) : (

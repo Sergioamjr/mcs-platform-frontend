@@ -17,14 +17,14 @@ class AllPayments extends React.Component {
   componentDidMount() {
     const { dispatch } = this.props
     Payments.GetAllPayments()
-      .then(({ data }) => dispatch(SetPayments(data)))
+      .then(data => dispatch(SetPayments(data)))
   }
 
   handleDelete = (item) => {
     Payments.DeletePayment(item._id)
       .then(() => showToastr('Lançamento excluído com sucesso.', 'success'))
       .then(() => Payments.GetAllPayments()
-        .then(({ data }) => this.props.dispatch(SetPayments(data))))
+        .then(data => this.props.dispatch(SetPayments(data))))
   }
 
 
