@@ -1,6 +1,5 @@
 import axios from 'axios'
 import API_CONFIG from './../API_CONFIG'
-import { TransformPaymentRequest } from './../utils'
 
 class UserInfo {
   static getUser(user = '') {
