@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import WrapperPage from './../../components/wrapper'
 import BoxContent from './../../components/BoxContent'
 import FlexContent from './../../components/FlexContent'
-import { UserInfo } from './../../Services'
+import { UserInfo, Payments } from './../../Services'
 import { GetPersonalUserInfo } from './../../Store/Reducers/userInfo'
 import { SetAllUsers, ResetAllUsers, SetSingleUser, ResetSingleUser, SetPaymentsHistory } from './../../Store/Reducers/AllUsers'
 import { EmptyContent, PersonalForm, ResumeAmount } from './../../components'
@@ -19,7 +19,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 class UsersRows extends React.Component {
   viewSingleUserDetails = (user) => {
-    UserInfo.getUserPayments(user.email)
+    Payments.getUserPayments(user.email)
       .then((data) => this.props.dispatch(SetPaymentsHistory(data)))
       .then(() => this.props.dispatch(SetSingleUser(user)))
       .then(() => this.props.dispatch(GetPersonalUserInfo(user)))
