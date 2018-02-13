@@ -12,9 +12,7 @@ import MdAttachMoney from 'react-icons/lib/md/attach-money'
 import MdContentPaste from 'react-icons/lib/md/content-paste'
 import FaArrowCircleOLeft from 'react-icons/lib/fa/arrow-circle-o-left'
 import FaGroup from 'react-icons/lib/fa/group'
-import { ResetUserInfo } from './../../Store/Reducers/userInfo'
 import { isValidToken } from './../../Store/Reducers/Auth'
-import { ResetAllUsers } from './../../Store/Reducers/AllUsers'
 import './sidebar.css'
 
 class SidebarMenu extends React.Component {
@@ -25,8 +23,7 @@ class SidebarMenu extends React.Component {
 
   handleLoggout = () => {
     this.props.dispatch(isValidToken(false))
-    this.props.dispatch(ResetUserInfo())
-    this.props.dispatch(ResetAllUsers())
+    this.props.dispatch({ type: 'USER_LOGOUT' })
   }
 
   handleToggle = () => this.setState({ open: !this.state.open });

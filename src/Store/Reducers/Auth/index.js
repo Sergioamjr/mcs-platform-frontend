@@ -1,6 +1,6 @@
 import Store from './../../DefaultStore'
 
-const userKey = '_mymoney_user'
+const userKey = '_mcs_auth'
 const TOKEN_VALIDATED = 'TOKEN_VALIDATED'
 const USER_FETCHED = 'USER_FETCHED'
 const IS_ADMIN = 'IS_ADMIN'
