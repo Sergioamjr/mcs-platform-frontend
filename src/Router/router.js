@@ -59,10 +59,11 @@ const UserAdmin = () => (
 
 class AppRouter extends React.Component {
   componentDidMount() {
-    const getStorage = JSON.parse(localStorage.getItem('_mymoney_user'))
+    const getStorage = JSON.parse(localStorage.getItem('_mcs_auth'))
     if (getStorage) {
       const { token, email } = getStorage
       const { dispatch } = this.props
+      axios.defaults.headers.common['authorization'] = token
       Auth.validateToken(token)
         .then(({data}) => {
           dispatch(isValidToken(data.valid))
