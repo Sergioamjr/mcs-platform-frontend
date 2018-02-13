@@ -11,8 +11,12 @@ const isNotAvaliable = value => {
   return moment(new Date()).diff(data, 'days') <= 30
 }
 
+const isMorethanNow = value => {
+  return new Date(value) < new Date()
+}
+
 const TransformPaymentRequest = values => {
-  const saque = values.filter(item => item.tipo === 'SAQUE')
+  const saque = values.filter(item => item.tipo === 'SAQUE').filter(item => isMorethanNow(item.data))
   const rendimento = values.filter(item => item.tipo === 'RENDIMENTO').filter(item => isAvaliable(item.data))
   const investimento = values.filter(item => item.tipo === 'INVESTIMENTO').filter(item => isAvaliable(item.data))
 
